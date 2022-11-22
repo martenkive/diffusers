@@ -23,7 +23,7 @@ from huggingface_hub import HfFolder, Repository, whoami
 from PIL import Image
 from torchvision import transforms
 from tqdm.auto import tqdm
-from transformers import CLIPTextModel, CLIPTokenizer
+from transformers import CLIPTextModel, CLIPTokenizer, CLIPFeatureExtractor
 from diffusers.pipelines.stable_diffusion.safety_checker import StableDiffusionSafetyChecker
 
 
@@ -456,6 +456,7 @@ def main(args):
                         ),
                         torch_dtype=torch_dtype,
                         safety_checker=StableDiffusionSafetyChecker.from_pretrained("CompVis/stable-diffusion-safety-checker"),
+                        feature_extractor=CLIPFeatureExtractor.from_pretrained("openai/clip-vit-base-patch32"),
                         revision=args.revision
                     )
                     pipeline.set_progress_bar_config(disable=True)
@@ -694,6 +695,7 @@ def main(args):
                     revision=None if args.pretrained_vae_name_or_path else args.revision,
                 ),
                 safety_checker=StableDiffusionSafetyChecker.from_pretrained("CompVis/stable-diffusion-safety-checker"),
+                feature_extractor=CLIPFeatureExtractor.from_pretrained("openai/clip-vit-base-patch32"),
                 scheduler=scheduler,
                 torch_dtype=torch.float16,
                 revision=args.revision,
