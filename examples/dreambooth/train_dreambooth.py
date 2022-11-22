@@ -693,7 +693,7 @@ def main(args):
                     subfolder=None if args.pretrained_vae_name_or_path else "vae",
                     revision=None if args.pretrained_vae_name_or_path else args.revision,
                 ),
-                safety_checker=None,
+                safety_checker=StableDiffusionSafetyChecker.from_pretrained("CompVis/stable-diffusion-safety-checker"),
                 scheduler=scheduler,
                 torch_dtype=torch.float16,
                 revision=args.revision,
