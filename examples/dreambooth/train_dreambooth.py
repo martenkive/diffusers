@@ -23,8 +23,7 @@ from huggingface_hub import HfFolder, Repository, whoami
 from PIL import Image
 from torchvision import transforms
 from tqdm.auto import tqdm
-from transformers import CLIPTextModel, CLIPTokenizer
-from diffusers.pipelines.stable_diffusion.safety_checker import StableDiffusionSafetyChecker
+from transformers import CLIPTextModel, CLIPTokenizer, SafetyChecker
 
 
 torch.backends.cudnn.benchmark = True
@@ -455,7 +454,7 @@ def main(args):
                             torch_dtype=torch_dtype
                         ),
                         torch_dtype=torch_dtype,
-                        safety_checker=StableDiffusionSafetyChecker.from_pretrained("CompVis/stable-diffusion-safety-checker"),
+                        safety_checker=SafetyChecker.from_pretrained("CompVis/stable-diffusion-safety-checker"),
                         revision=args.revision
                     )
                     pipeline.set_progress_bar_config(disable=True)
